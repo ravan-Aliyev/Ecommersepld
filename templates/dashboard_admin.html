@@ -1,0 +1,22 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="admin-dashboard">
+    <h1>Admin Dashboard</h1>
+    <div class="company-cards">
+        {% for company in companies %}
+        <div class="company-card">
+            <h2>{{ company.name }}</h2>
+            <p>Approved: {% if company.approval %}Yes{% else %}No{% endif %}</p>
+            <form action="/approval/{{company.id}}?approval=True" method="POST">
+                <input type="hidden" name="company_id" value="{{ company.id }}">
+                <button type="submit" {% if company.approval %}disabled{% endif %}>
+                    {% if company.approval %}Approved{% else %}Approve{% endif %}
+                </button>
+            </form>
+
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
